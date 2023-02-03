@@ -1,0 +1,15 @@
+{
+  "name": "search-sdk",
+  "version": "1.0.0",
+  "description": "SDK for search content",
+  "main": "index.js",
+  "repository": "https://github.com/randomwalklabsco/letterdrop-search-sdk",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "search-content"
+  ],
+  "contributors": [],
+  "license": "MIT"
+}
