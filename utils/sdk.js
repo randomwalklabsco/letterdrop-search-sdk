@@ -93,11 +93,17 @@ function addReadMoreArticles(sourceList) {
       anchorElement.rel = "noreferrer";
       anchorElement.className = "letterdrop-article-link letterdrop-ellipsis";
 
-      articleDetails.appendChild(titleElement);
-      articleDetails.appendChild(descriptionElement);
+      if (title?.trim()) {
+        articleDetails.appendChild(titleElement);
+      }
+      if (description?.trim()) {
+        articleDetails.appendChild(descriptionElement);
+      }
       articleDetails.appendChild(anchorElement);
 
-      articleDiv.appendChild(imageElement);
+      if (image) {
+        articleDiv.appendChild(imageElement);
+      }
       articleDiv.appendChild(articleDetails);
 
       readMore.appendChild(articleDiv);
