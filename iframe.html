@@ -122,6 +122,15 @@
         overflow: hidden;
         text-overflow: ellipsis;
       }
+      .letterdrop-logo {
+        width: 100%;
+        display: flex;
+        justify-content: flex-end;
+      }
+      .letterdrop-logo img {
+        width: 150px;
+        background-color: transparent;
+      }
 
       #letterdrop-loader {
         width: 32px;
@@ -168,11 +177,22 @@
       <div id="letterdrop-results"></div>
       <div id="letterdrop-read-more"></div>
       <span id="letterdrop-loader"></span>
+      <a
+        class="letterdrop-logo"
+        href="https://letterdrop.com"
+        target="_blank"
+        rel="noreferrer"
+      >
+        <img
+          src="https://ltrdrp.com/resources/images/made_with_letterdrop.png"
+          alt="Made with Letterdrop"
+        />
+      </a>
     </div>
 
     <script>
       const publicationId = "63d777cab32a58538c2b9eeb";
     </script>
-    <script src="./letterdrop-sdk.js" type="text/javascript" defer></script>
+    <script src="./utils/sdk.js" type="text/javascript" defer></script>
   </body>
 </html>
