@@ -62,7 +62,6 @@ async function getAnswer() {
 }
 
 function addReadMoreArticles(sourceList) {
-  sourceList = [...sourceList, ...sourceList, ...sourceList];
   if (sourceList?.length) {
     readMore.style.display = "flex";
     readMore.innerHTML = "";
