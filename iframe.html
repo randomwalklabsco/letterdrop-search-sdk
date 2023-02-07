@@ -1,199 +1,192 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+/>
+<style>
+  .letterdrop-body {
+    width: fit-content;
+    height: fit-content;
+    font-size: 14px;
+    font-family: inherit;
+  }
+  .letterdrop-widget {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 500px;
+    margin: 0 auto;
+    background: transparent;
+    padding: 10px;
+  }
+  .letterdrop-search {
+    width: 100%;
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+  .letterdrop-search input {
+    height: 42px;
+    width: 100%;
+    border-radius: 6px;
+    border: 1px solid #bebec5;
+    padding: 0px 36px 0px 16px;
+    font-family: inherit;
+  }
+  .letterdrop-search input:focus-visible,
+  .letterdrop-search input:focus {
+    outline: inherit;
+    box-shadow: none;
+    border: 1px solid #4160ff;
+  }
+  .letterdrop-search .fa-search {
+    position: absolute;
+    font-size: 16px;
+    color: #1a1a1a;
+    right: 16px;
+    cursor: pointer;
+  }
+  /* #letterdrop-example-search {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin-top: 32px;
+    align-items: flex-start;
+    justify-content: flex-start;
+  }
+  #letterdrop-example-search label {
+    margin-bottom: 8px;
+  }
+  #letterdrop-example-search input,
+  #letterdrop-example-search input:focus-visible,
+  #letterdrop-example-search input:focus {
+    height: 42px;
+    border-radius: 6px;
+    border: 1px solid #bebec5;
+    padding: 0px 16px 0px 16px;
+    margin-top: 16px;
+    width: calc(100% - 32px);
+    cursor: pointer;
+    outline: inherit;
+    box-shadow: none;
+    font-family: inherit;
+  } */
+  #letterdrop-results {
+    width: 100%;
+    height: auto;
+    margin-top: 16px;
+    padding: 10px;
+    display: none;
+  }
+  #letterdrop-read-more {
+    width: 100%;
+    display: none;
+    flex-direction: column;
+    margin-top: 24px;
+    align-items: flex-start;
+    justify-content: flex-start;
+  }
+  #letterdrop-read-more label {
+    font-weight: 700;
+  }
+  .letterdrop-article {
+    display: flex;
+    flex-direction: row;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    width: 100%;
+  }
+  .letterdrop-image {
+    width: 120px;
+    aspect-ratio: 16/9;
+    margin-right: 20px;
+    object-fit: cover;
+  }
+  .letterdrop-article-details {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: calc(100% - 140px);
+  }
+  .letterdrop-article-title {
+    font-size: 14px;
+  }
+  .letterdrop-article-description {
+    font-size: 12px;
+  }
+  .letterdrop-article-link {
+    font-size: 12px;
+    color: black;
+  }
+  .letterdrop-ellipsis {
+    font-weight: 100 !important;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .letterdrop-homepage {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    font-size: 10px;
+    color: black;
+    margin-top: 10px;
+    text-decoration: none;
+  }
+
+  #letterdrop-loader {
+    width: 32px;
+    height: 32px;
+    border: 3.5px solid #4160ff;
+    border-bottom-color: transparent;
+    border-radius: 50%;
+    display: inline-block;
+    box-sizing: border-box;
+    animation: rotation 1s linear infinite;
+    display: none;
+  }
+  @keyframes rotation {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+</style>
+<div class="letterdrop-widget">
+  <div class="letterdrop-search">
+    <input type="text" id="letterdrop-input" placeholder="Ask a question" />
+    <i class="fa fa-search" onclick="getAnswer()"></i>
+  </div>
+  <a
+    class="letterdrop-homepage"
+    href="https://letterdrop.com"
+    target="_blank"
+    rel="noreferrer"
+  >
+    Powered by Letterdrop
+  </a>
+  <!-- <div id="letterdrop-example-search">
+    <label>For example</label>
+    <input
+      type="text"
+      id="letterdrop-example1"
+      readonly
+      value="Should I use debt financing for my startup?"
     />
-    <style>
-      body {
-        width: fit-content;
-        height: fit-content;
-        font-size: 14px;
-        font-family: inherit;
-      }
-      .letterdrop-widget {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        width: 500px;
-        margin: 0 auto;
-        background: transparent;
-        padding: 10px;
-      }
-      .letterdrop-search {
-        width: 100%;
-        position: relative;
-        display: flex;
-        align-items: center;
-      }
-      .letterdrop-search input {
-        height: 42px;
-        width: 100%;
-        border-radius: 6px;
-        border: 1px solid #bebec5;
-        padding: 0px 36px 0px 16px;
-        font-family: inherit;
-      }
-      .letterdrop-search input:focus-visible,
-      .letterdrop-search input:focus {
-        outline: inherit;
-        box-shadow: none;
-        border: 1px solid #4160ff;
-      }
-      .letterdrop-search .fa-search {
-        position: absolute;
-        font-size: 16px;
-        color: #1a1a1a;
-        right: 16px;
-        cursor: pointer;
-      }
-      /* #letterdrop-example-search {
-        width: 100%;
-        display: flex;
-        flex-direction: column;
-        margin-top: 32px;
-        align-items: flex-start;
-        justify-content: flex-start;
-      }
-      #letterdrop-example-search label {
-        margin-bottom: 8px;
-      }
-      #letterdrop-example-search input,
-      #letterdrop-example-search input:focus-visible,
-      #letterdrop-example-search input:focus {
-        height: 42px;
-        border-radius: 6px;
-        border: 1px solid #bebec5;
-        padding: 0px 16px 0px 16px;
-        margin-top: 16px;
-        width: calc(100% - 32px);
-        cursor: pointer;
-        outline: inherit;
-        box-shadow: none;
-        font-family: inherit;
-      } */
-      #letterdrop-results {
-        width: 100%;
-        height: auto;
-        margin-top: 16px;
-        padding: 10px;
-        display: none;
-      }
-      #letterdrop-read-more {
-        width: 100%;
-        display: none;
-        flex-direction: column;
-        margin-top: 24px;
-        align-items: flex-start;
-        justify-content: flex-start;
-      }
-      #letterdrop-read-more label {
-        font-weight: 700;
-      }
-      .letterdrop-article {
-        display: flex;
-        flex-direction: row;
-        margin-top: 20px;
-        margin-bottom: 20px;
-        width: 100%;
-      }
-      .letterdrop-image {
-        width: 120px;
-        aspect-ratio: 16/9;
-        margin-right: 20px;
-        object-fit: cover;
-      }
-      .letterdrop-article-details {
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        width: calc(100% - 140px);
-      }
-      .letterdrop-article-title {
-        font-size: 14px;
-      }
-      .letterdrop-article-description {
-        font-size: 12px;
-      }
-      .letterdrop-article-link {
-        font-size: 12px;
-        color: black;
-      }
-      .letterdrop-ellipsis {
-        font-weight: 100 !important;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-      }
-      .letterdrop-homepage {
-        width: 100%;
-        display: flex;
-        justify-content: flex-end;
-        font-size: 10px;
-        color: black;
-        margin-top: 10px;
-        text-decoration: none;
-      }
+    <input
+      type="text"
+      id="letterdrop-example2"
+      readonly
+      value="Should I issue employees virtual cards?"
+    />
+  </div> -->
+  <div id="letterdrop-results"></div>
+  <div id="letterdrop-read-more"></div>
+  <span id="letterdrop-loader"></span>
+</div>
 
-      #letterdrop-loader {
-        width: 32px;
-        height: 32px;
-        border: 3.5px solid #4160ff;
-        border-bottom-color: transparent;
-        border-radius: 50%;
-        display: inline-block;
-        box-sizing: border-box;
-        animation: rotation 1s linear infinite;
-        display: none;
-      }
-      @keyframes rotation {
-        0% {
-          transform: rotate(0deg);
-        }
-        100% {
-          transform: rotate(360deg);
-        }
-      }
-    </style>
-  </head>
-  <body>
-    <div class="letterdrop-widget">
-      <div class="letterdrop-search">
-        <input type="text" id="letterdrop-input" placeholder="Ask a question" />
-        <i class="fa fa-search" onclick="getAnswer()"></i>
-      </div>
-      <a
-        class="letterdrop-homepage"
-        href="https://letterdrop.com"
-        target="_blank"
-        rel="noreferrer"
-      >
-        Powered by Letterdrop
-      </a>
-      <!-- <div id="letterdrop-example-search">
-        <label>For example</label>
-        <input
-          type="text"
-          id="letterdrop-example1"
-          readonly
-          value="Should I use debt financing for my startup?"
-        />
-        <input
-          type="text"
-          id="letterdrop-example2"
-          readonly
-          value="Should I issue employees virtual cards?"
-        />
-      </div> -->
-      <div id="letterdrop-results"></div>
-      <div id="letterdrop-read-more"></div>
-      <span id="letterdrop-loader"></span>
-    </div>
-
-    <script>
-      const publicationId = "63d777cab32a58538c2b9eeb";
-    </script>
-    <script src="./utils/sdk.js" type="text/javascript" defer></script>
-  </body>
-</html>
+<script>
+  const publicationId = "63d777cab32a58538c2b9eeb";
+</script>
+<script src="./utils/sdk.js" type="text/javascript" defer></script>
