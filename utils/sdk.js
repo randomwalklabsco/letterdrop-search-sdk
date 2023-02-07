@@ -33,14 +33,11 @@ async function getAnswer() {
 
   toggleLoading();
   try {
-    const formData = new FormData();
-    formData.set("question", input.value);
-    formData.set("publicationId", publicationId);
-
-    const response = await fetch("http://127.0.0.1:5000/querycontent", {
-      method: "POST",
-      body: formData
-    });
+    const response = await fetch(
+      `http://127.0.0.1:5000/querycontent?publicationId=${publicationId}&question=${encodeURIComponent(
+        input.value
+      )}`
+    );
     const {
       success,
       answer = "We were unable to answer your query. Try again.",
