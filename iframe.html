@@ -17,10 +17,9 @@
         flex-direction: column;
         align-items: center;
         width: 500px;
-        height: 400px;
         margin: 0 auto;
-        background: white;
-        padding: 20px;
+        background: transparent;
+        padding: 10px;
       }
       .letterdrop-search {
         width: 100%;
@@ -34,6 +33,7 @@
         border-radius: 6px;
         border: 1px solid #bebec5;
         padding: 0px 36px 0px 16px;
+        font-family: inherit;
       }
       .letterdrop-search input:focus-visible,
       .letterdrop-search input:focus {
@@ -48,7 +48,7 @@
         right: 16px;
         cursor: pointer;
       }
-      #letterdrop-example-search {
+      /* #letterdrop-example-search {
         width: 100%;
         display: flex;
         flex-direction: column;
@@ -71,16 +71,18 @@
         cursor: pointer;
         outline: inherit;
         box-shadow: none;
-      }
+        font-family: inherit;
+      } */
       #letterdrop-results {
         width: 100%;
         height: auto;
-        margin-top: 24px;
+        margin-top: 16px;
         padding: 10px;
+        display: none;
       }
       #letterdrop-read-more {
         width: 100%;
-        display: "none";
+        display: none;
         flex-direction: column;
         margin-top: 24px;
         align-items: flex-start;
@@ -94,6 +96,7 @@
         flex-direction: row;
         margin-top: 20px;
         margin-bottom: 20px;
+        width: 100%;
       }
       .letterdrop-image {
         width: 120px;
@@ -105,6 +108,7 @@
         display: flex;
         flex-direction: column;
         justify-content: space-between;
+        width: calc(100% - 140px);
       }
       .letterdrop-article-title {
         font-size: 14px;
@@ -122,14 +126,14 @@
         overflow: hidden;
         text-overflow: ellipsis;
       }
-      .letterdrop-logo {
+      .letterdrop-homepage {
         width: 100%;
         display: flex;
         justify-content: flex-end;
-      }
-      .letterdrop-logo img {
-        width: 150px;
-        background-color: transparent;
+        font-size: 10px;
+        color: black;
+        margin-top: 10px;
+        text-decoration: none;
       }
 
       #letterdrop-loader {
@@ -159,7 +163,15 @@
         <input type="text" id="letterdrop-input" placeholder="Ask a question" />
         <i class="fa fa-search" onclick="getAnswer()"></i>
       </div>
-      <div id="letterdrop-example-search">
+      <a
+        class="letterdrop-homepage"
+        href="https://letterdrop.com"
+        target="_blank"
+        rel="noreferrer"
+      >
+        Powered by Letterdrop
+      </a>
+      <!-- <div id="letterdrop-example-search">
         <label>For example</label>
         <input
           type="text"
@@ -173,21 +185,10 @@
           readonly
           value="Should I issue employees virtual cards?"
         />
-      </div>
+      </div> -->
       <div id="letterdrop-results"></div>
       <div id="letterdrop-read-more"></div>
       <span id="letterdrop-loader"></span>
-      <a
-        class="letterdrop-logo"
-        href="https://letterdrop.com"
-        target="_blank"
-        rel="noreferrer"
-      >
-        <img
-          src="https://ltrdrp.com/resources/images/made_with_letterdrop.png"
-          alt="Made with Letterdrop"
-        />
-      </a>
     </div>
 
     <script>

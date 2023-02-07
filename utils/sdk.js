@@ -1,20 +1,20 @@
 const input = document.getElementById("letterdrop-input");
 const results = document.getElementById("letterdrop-results");
-const examples = [
-  document.getElementById("letterdrop-example1"),
-  document.getElementById("letterdrop-example2")
-];
+// const examples = [
+//   document.getElementById("letterdrop-example1"),
+//   document.getElementById("letterdrop-example2")
+// ];
 const loader = document.getElementById("letterdrop-loader");
 const readMore = document.getElementById("letterdrop-read-more");
 var loading = false;
 
-examples.forEach((example) => {
-  example.addEventListener("click", async () => {
-    if (loading) return;
-    input.value = example.value;
-    getAnswer();
-  });
-});
+// examples.forEach((example) => {
+//   example.addEventListener("click", async () => {
+//     if (loading) return;
+//     input.value = example.value;
+//     getAnswer();
+//   });
+// });
 
 input.addEventListener("keydown", async (event) => {
   if (event.key === "Enter") getAnswer();
@@ -23,8 +23,8 @@ input.addEventListener("keydown", async (event) => {
 function toggleLoading() {
   loading = !loading;
   loader.style.display = loading ? "block" : "none";
-  results.innerText = loading ? "" : results.innerText;
-  document.getElementById("letterdrop-example-search").style.display = "none";
+  results.style.display = loading ? "none" : "flex";
+  // document.getElementById("letterdrop-example-search").style.display = "none";
   readMore.style.display = loading ? "none" : "flex";
 }
 
@@ -37,19 +37,17 @@ async function getAnswer() {
     formData.set("question", input.value);
     formData.set("publicationId", publicationId);
 
-    const response = await fetch(
-      "https://cc24-157-119-208-198.in.ngrok.io/querycontent",
-      {
-        method: "POST",
-        body: formData
-      }
-    );
+    const response = await fetch("http://127.0.0.1:5000/querycontent", {
+      method: "POST",
+      body: formData
+    });
     const {
       success,
       answer = "We were unable to answer your query. Try again.",
       source = []
     } = await response.json();
 
+    results.style.display = "flex";
     results.innerText = success
       ? answer
       : "We were unable to answer your query. Try again.";
