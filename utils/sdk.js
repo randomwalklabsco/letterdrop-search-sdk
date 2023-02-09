@@ -1,11 +1,11 @@
-const input = document.getElementById("letterdrop-input");
-const results = document.getElementById("letterdrop-results");
+const input = null;
+const results = null;
+const loader = null;
+const readMore = null;
 // const examples = [
 //   document.getElementById("letterdrop-example1"),
 //   document.getElementById("letterdrop-example2")
 // ];
-const loader = document.getElementById("letterdrop-loader");
-const readMore = document.getElementById("letterdrop-read-more");
 var loading = false;
 
 // examples.forEach((example) => {
@@ -15,20 +15,29 @@ var loading = false;
 //     getAnswer();
 //   });
 // });
-
-input.addEventListener("keydown", async (event) => {
-  if (event.key === "Enter") getAnswer();
-});
+const intervalId = setInterval(() => {
+  input = document.getElementById("letterdrop-input");
+  if (input) {
+    input.addEventListener("keydown", async (event) => {
+      if (event.key === "Enter") getAnswer();
+    });
+    clearInterval(intervalId);
+  }
+}, 100);
 
 function toggleLoading() {
   loading = !loading;
   loader.style.display = loading ? "block" : "none";
   results.style.display = loading ? "none" : "flex";
-  // document.getElementById("letterdrop-example-search").style.display = "none";
   readMore.style.display = loading ? "none" : "flex";
 }
 
 async function getAnswer() {
+  input = input || document.getElementById("letterdrop-input");
+  results = results || document.getElementById("letterdrop-results");
+  loader = loader || document.getElementById("letterdrop-loader");
+  readMore = readMore || document.getElementById("letterdrop-read-more");
+
   if (loading || !input.value?.trim()) return;
 
   toggleLoading();
