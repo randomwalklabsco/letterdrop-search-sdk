@@ -1,8 +1,8 @@
-const input = null;
-const results = null;
-const loader = null;
-const readMore = null;
-// const examples = [
+var input = null;
+var results = null;
+var loader = null;
+var readMore = null;
+// var examples = [
 //   document.getElementById("letterdrop-example1"),
 //   document.getElementById("letterdrop-example2")
 // ];
@@ -15,7 +15,7 @@ var loading = false;
 //     getAnswer();
 //   });
 // });
-const intervalId = setInterval(() => {
+var intervalId = setInterval(() => {
   input = document.getElementById("letterdrop-input");
   if (input) {
     input.addEventListener("keydown", async (event) => {
