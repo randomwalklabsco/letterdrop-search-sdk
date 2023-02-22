@@ -64,7 +64,7 @@ async function getAnswer() {
       }
     } else if (response.status === 429) {
       results.innerText =
-        "You've reached the maximum number of questions you can ask. Try again later";
+        "You've reached the maximum number of questions you can ask. Try again later.";
     } else {
       results.innerText = "We were unable to answer your question. Try again.";
     }
