@@ -47,22 +47,30 @@ async function getAnswer() {
         input.value
       )}`
     );
-    const {
-      success,
-      answer = "We were unable to answer your query. Try again.",
-      source = []
-    } = await response.json();
 
-    results.style.display = "flex";
-    results.innerText = success
-      ? answer
-      : "We were unable to answer your query. Try again.";
-    if (success) {
-      addReadMoreArticles(source);
+    if (response.status === 200) {
+      const {
+        success,
+        answer = "We were unable to answer your question. Try again.",
+        source = []
+      } = await response.json();
+
+      results.style.display = "flex";
+      results.innerText = success
+        ? answer
+        : "We were unable to answer your question. Try again.";
+      if (success) {
+        addReadMoreArticles(source);
+      }
+    } else if (response.status === 429) {
+      results.innerText =
+        "You've reached the maximum number of questions you can ask. Try again later";
+    } else {
+      results.innerText = "We were unable to answer your question. Try again.";
     }
   } catch (error) {
     console.error("Error: ", error);
-    results.innerText = "We were unable to answer your query. Try again.";
+    results.innerText = "We were unable to answer your question. Try again.";
   }
   toggleLoading();
 }
