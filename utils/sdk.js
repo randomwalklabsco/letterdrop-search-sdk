@@ -2,6 +2,7 @@ var input = null;
 var results = null;
 var loader = null;
 var readMore = null;
+var sessionId = Date.now();
 // var examples = [
 //   document.getElementById("letterdrop-example1"),
 //   document.getElementById("letterdrop-example2")
@@ -45,7 +46,7 @@ async function getAnswer() {
     const response = await fetch(
       `http://127.0.0.1:5000/querycontent?publicationId=${publicationId}&question=${encodeURIComponent(
         input.value
-      )}`
+      )}&session_id=${sessionId}`
     );
 
     if (response.status === 200) {
